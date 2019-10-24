@@ -1,12 +1,9 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router/index';// 引入路由
 
-Vue.config.productionTip = false
-
+// let app =Vue.extend(App);
 new Vue({
-  router,
-  store,
+  router, // 注入到根实例中
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

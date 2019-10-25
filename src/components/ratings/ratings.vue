@@ -6,12 +6,8 @@ rating
 
 <script>
 export default {
-    name: 'ratings',
-  data() { 
-    return {
+  name: 'ratings'
+};
 
-    }
-  }
- };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller = "seller"></v-header>
     <div class="tab border-1px">
     <!-- 使用 router-link 组件来导航. -->
     <!-- 通过传入 `to` 属性指定链接. -->
@@ -16,9 +16,27 @@
 </template>
 
 <script>
-import header from './components/header/header';
+import header from './components/header/header'
+const ERR_OK = 0;
 export default {
-  components: {
+	data() {
+		return {
+			seller: {}
+		};
+	},
+	created() {
+		this.$http.get('/api/seller').then(response => {
+			response = response.body;
+			if (response.errno === ERR_OK) {
+				this.seller = response.data;
+				console.log('请求结果=' + this.seller)
+			}
+		}, reponse => {
+
+		})
+	},
+	name: 'App',
+    components: {
     'v-header': header
   }
 }

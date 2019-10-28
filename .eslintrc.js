@@ -17,7 +17,8 @@ module.exports = {
      //关闭行末分号提示/报错
      'semi': 0,
      //关闭定义变量未使用提示/报错
-     'no-unused-vars':0
+	 'no-unused-vars':0,
+	 'no-tabs': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -30,12 +30,16 @@
             <div
                 v-if="seller.supports"
                 class="support-count"
+                @click="showDetail"
             >
                 <span class="count">{{seller.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
         </div>
-        <div class="bulletin-wrapper">
+        <div
+            class="bulletin-wrapper"
+            @click="showDetail"
+        >
             <span class="bulletin-title"></span>
             <span class="bulletin-text">{{seller.bulletin}}</span>
             <i class="icon-keyboard_arrow_right"></i>
@@ -47,12 +51,75 @@
                 height="100%"
             >
         </div>
+        <div
+            v-show="detailShow"
+            class="detail"
+        >
+            <div
+                class="detail-wrappper"
+                clearfix
+            >
+                <div class="detail-main">
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                </div>
+                <div
+                    class="detail-close"
+                    @click="hideDetail"
+                >
+                    <i class="icon-close"></i>
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>
 <script>export default {
     props: {
         seller: {
             type: Object
+        }
+    },
+    data() {
+        return {
+            detailShow: false
+        }
+    },
+    methods: {
+        showDetail: function () {
+            this.detailShow = true
+        },
+        hideDetail: function () {
+            this.detailShow = false
         }
     },
     created() {
@@ -63,10 +130,12 @@
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
 @import '../../commom/stylus/icon'
+@import '../../commom/stylus/base'
 .header
-    position relative
+    position: relative
     color: rgb(255, 255, 255)
-    background-color rgba(7,17,27,0.5)
+    overflow: hidden
+    background-color: rgba(7, 17, 27, 0.5)
     .content-wrapper
         position: relative
         padding: 24px 12px 18px 24px
@@ -152,8 +221,8 @@
             display: inline-block
             width: 22px
             height: 12px
-            vertical-align top
-            margin-top 7px
+            vertical-align: top
+            margin-top: 8px
             bg-image('bulletin')
             background-size: 22px 12px
         .bulletin-text
@@ -174,4 +243,27 @@
         height: 100%
         z-index: -1
         filter: blur(10px)
+    .detail
+        position: fixed
+        overflow: auto
+        top: 0
+        left: 0
+        z-index: 100
+        width: 100%
+        height: 100%
+        background-color: rgba(7, 17, 27, 0.8)
+        filter: blur(10px)
+        .detail-wrappper
+            width: 100%
+            min-height: 100%
+            .detail-main
+                margin-top: 64px
+                padding-bottom: 64px
+        .detail-close
+            position: relative
+            width: 32px
+            height: 32px
+            margin: -64px auto 0 auto
+            clear: both
+            font-size: 32px
 </style>

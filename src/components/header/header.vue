@@ -2,11 +2,9 @@
     <div class="header">
         <div class="content-wrapper">
             <div class="avatar">
-                <img
-                    width="64"
-                    height="64"
-                    :src="seller.avatar"
-                >
+                <img width="64"
+                     height="64"
+                     :src="seller.avatar">
             </div>
             <div class="content">
                 <div class="title">
@@ -16,89 +14,43 @@
                 <div class="description">
                     {{seller.description}}/{{seller.deliveryTime}}分钟送到
                 </div>
-                <div
-                    v-if="seller.supports"
-                    class="support"
-                >
-                    <span
-                        class="icon"
-                        :class="classMap[seller.supports[0].type]"
-                    ></span>
+                <div v-if="seller.supports"
+                     class="support">
+
+                    <span class="icon"
+                          :class="classMap[seller.supports[0].type]"></span>
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
             </div>
-            <div
-                v-if="seller.supports"
-                class="support-count"
-                @click="showDetail"
-            >
+            <div v-if="seller.supports"
+                 class="support-count"
+                 @click="showDetail">
                 <span class="count">{{seller.supports.length}}个</span>
-                <i class="icon-keyboard_arrow_right"></i>
+                <i class="fa fa-arrow-right"></i>
             </div>
         </div>
-        <div
-            class="bulletin-wrapper"
-            @click="showDetail"
-        >
+        <div class="bulletin-wrapper"
+             @click="showDetail">
             <span class="bulletin-title"></span>
             <span class="bulletin-text">{{seller.bulletin}}</span>
-            <i class="icon-keyboard_arrow_right"></i>
+            <i class="fa fa-arrow-right"></i>
         </div>
         <div class="background">
-            <img
-                :src="seller.avatar"
-                width="100%"
-                height="100%"
-            >
+            <img :src="seller.avatar"
+                 width="100%"
+                 height="100%">
         </div>
-        <div
-            v-show="detailShow"
-            class="detail"
-        >
-            <div
-                class="detail-wrappper"
-                clearfix
-            >
+        <div v-show="detailShow"
+             class="detail">
+            <div class="detail-wrappper"
+                 clearfix>
                 <div class="detail-main">
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
-                    <p> dfdfd快乐放假了快速度发来 了；接口；连接；了解了；讲两句；连接fdfsdfd</p>
+                   
                 </div>
-                <div
-                    class="detail-close"
-                    @click="hideDetail"
-                >
-                    <i class="icon-close"></i>
-                </div>
-
+            </div>
+            <div class="detail-close"
+                 @click="hideDetail">
+                <i class="fa fa-times-circle-o"></i>
             </div>
         </div>
     </div>
@@ -204,7 +156,8 @@
             .count
                 font-size: 10px
                 vertical-align: top
-            .icon-keyboard_arrow_right
+
+               .fa-arrow-right
                 font-size: 10px
                 margin-left: 2px
                 line-height: 24px
@@ -229,7 +182,7 @@
             font-size: 10px
             vertical-align: top
             margin-left: 4px
-        .icon-keyboard_arrow_right
+        .fa-arrow-right
             position: absolute
             top: 0
             right: 12px
@@ -252,7 +205,6 @@
         width: 100%
         height: 100%
         background-color: rgba(7, 17, 27, 0.8)
-        filter: blur(10px)
         .detail-wrappper
             width: 100%
             min-height: 100%

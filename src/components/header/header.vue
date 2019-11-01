@@ -45,7 +45,10 @@
             <div class="detail-wrappper"
                  clearfix>
                 <div class="detail-main">
-                   
+					<div class="name">{{seller.name}}</div>
+					<div class="star-wrapper">
+						<star :size='48' :score='seller.score'></star>
+					</div>
                 </div>
             </div>
             <div class="detail-close"
@@ -156,8 +159,7 @@
             .count
                 font-size: 10px
                 vertical-align: top
-
-               .fa-arrow-right
+            .fa-arrow-right
                 font-size: 10px
                 margin-left: 2px
                 line-height: 24px
@@ -211,6 +213,11 @@
             .detail-main
                 margin-top: 64px
                 padding-bottom: 64px
+                .name
+                    line-height 16px
+                    font-weight 700
+                    font-size: 16px
+                    text-align: center
         .detail-close
             position: relative
             width: 32px

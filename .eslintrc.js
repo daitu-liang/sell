@@ -13,13 +13,12 @@ module.exports = {
     // "quotes": [1, "single"], //引号类型 
 
     "space-before-function-paren": 0, // 函数定义时括号前面要不要有空格
-     //关闭行末分号提示/报错
-     'semi': 0,
-     //关闭定义变量未使用提示/报错
-    'no-unused-vars':0,
-    'no-tabs': 0,
-    'indent': 0,
-	'no-trailing-spaces': 0,
+    //关闭行末分号提示/报错
+    'semi': 0,
+    //关闭定义变量未使用提示/报错
+    'no-unused-vars': 0,
+    'indent': 'off',
+    	'no-trailing-spaces': 0,
   },
   parserOptions: {
     parser: 'babel-eslint'

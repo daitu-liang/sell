@@ -19,24 +19,24 @@
 import header from './components/header/header'
 const ERR_OK = 0;
 export default {
-	data() {
-		return {
-			seller: {}
-		};
-	},
-	created() {
-		this.$http.get('/api/seller').then(response => {
-			response = response.body;
-			console.log('请求结果response=' + response)
-			if (response.errno === ERR_OK) {
-				this.seller = response.data;
-				console.log('请求结果=' + this.seller)
-			}
-		}, reponse => {
+ data() {
+    return {
+      seller: {}
+    };
+  },
+  created() {
+    this.$http.get('/api/seller').then(response => {
+     response = response.body;
+      console.log('请求结果response=' + response)
+      if (response.errno === ERR_OK) {
+      this.seller = response.data;
+      console.log('请求结果=' + this.seller)
+      }
+      }, reponse => {
 
-		})
-	},
-	name: 'App',
+    })
+  },
+  name: 'App',
     components: {
     'v-header': header
   }

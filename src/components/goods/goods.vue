@@ -1,6 +1,7 @@
 <template>
   <div class="goods">
-    <div class="goods-menu-wapper">
+    <div class="goods-menu-wapper"
+         ref="menuWrapper">
       <ul>
         <li v-for="(item, index) in goods"
             class="menu-item"
@@ -15,7 +16,8 @@
         </li>
       </ul>
     </div>
-    <div class="goods-list-wapper">
+    <div class="goods-list-wapper"
+         ref="goodsWrapper">
       <ul>
         <li v-for="item in goods"
             class="food-list"
@@ -39,7 +41,8 @@
                 </div>
                 <div class="price">
                   <span class="now-price">￥{{food.price}}</span>
-                  <span class="old-price" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="old-price"
+                        v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
               </div>
             </li>
@@ -51,6 +54,8 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
+import { prototype } from 'events';
 const ERR_OK = 0;
 export default {
   name: 'goods',
@@ -61,7 +66,7 @@ export default {
   },
   data() {
     return {
-      goods: []
+    goods: []
     }
   },
   created() {
@@ -72,11 +77,33 @@ export default {
       if (response.errno === ERR_OK) {
         this.goods = response.data;
         console.log('请求结果=' + this.seller)
+        // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
+        // 但是DOM并没有变化，计算不到正确的高度
+        this.$nextTick(() => {
+          // 调用scroll函数，实现滚动
+          this._instBScroll()
+          // 拿到数据以后计算高度
+          // this._calculateHeight();
+        })
       }
     }, reponse => {
 
     })
+  },
+  methods: {
+    _instBScroll() {
+    this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+      clik: true
+    })
+    this.goodsScroll = new BScroll(this.$refs.goodsWrapper, {
+      clik: true,
+      prototype: 3
+    })
+    this.goodsScroll.on('scroll', (pos) => {
+    this.scrollY = Math.abs(Math.round(pos.y))
+    })
   }
+ }
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -145,14 +172,14 @@ export default {
     .icon
       flex: 0 0 57px
       margin-right: 10px
-      vertical-align top
+      vertical-align: top
     .content
       flex: 1
       .name
         font-size: 17px
         color: rgb(7, 17, 27)
         line-height: 28px
-        margin 0px
+        margin: 0px
       .desc, .extra
         font-size: 10px
         line-height: 12px

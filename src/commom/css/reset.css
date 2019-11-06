@@ -29,8 +29,9 @@ footer, header, menu, nav, section {
     display: block;
 }
 
-body {
-    line-height: 1;
+html,body {
+		line-height: 1;
+		margin: 0;
 }
 
 blockquote, q {

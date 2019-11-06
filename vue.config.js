@@ -10,14 +10,14 @@ function resolve(dir) {
 }
 
 module.exports = {
-	lintOnSave: true,
-	chainWebpack: config => {
-	config.resolve.alias
-	.set('@', resolve('src'))
-	.set('assets', resolve('src/assets'))
-	.set('components', resolve('src/components'))
-	.set('stylus', resolve('../../commom/stylus'))
-	},
+  lintOnSave: true,
+  chainWebpack: config => {
+  config.resolve.alias
+  .set('@', resolve('src'))
+  .set('assets', resolve('src/assets'))
+  .set('components', resolve('src/components'))
+  .set('stylus', resolve('../../commom/stylus'))
+  },
  devServer: {
 		before(app) {
 			app.get('/api/seller', (req, res) => {

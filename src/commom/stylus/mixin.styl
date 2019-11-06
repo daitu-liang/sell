@@ -9,6 +9,12 @@ border-1px($color)
     border-top: 1px solid $color
     content: ' '
 
+
+border-none()
+  &:after
+    display: none
+
+
 //配置背景图片函数
 bg-image($url)
   background-image: url($url + "@2x.png")

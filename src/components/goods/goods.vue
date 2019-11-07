@@ -4,14 +4,13 @@
          ref="menuWrapper">
       <ul>
         <li v-for="(item, index) in goods"
-            class="menu-item"
+            class="menu-item" :class="{'current' : currentIndex===index}" @click="selectMenu(index,$event)"
             :key="index">
           <span class="text border-1px">
             <span v-show="item.type>0"
                   class="icon"
                   :class="classMap[item.type]">
-            </span>
-            {{item.name}}
+            </span>{{item.name}}
           </span>
         </li>
       </ul>
@@ -20,7 +19,7 @@
          ref="goodsWrapper">
       <ul>
         <li v-for="item in goods"
-            class="food-list"
+            class="food-list food-list-hook"
             :key="item.id">
           <h1 class="title">{{item.name}}</h1>
           <ul>
@@ -66,7 +65,9 @@ export default {
   },
   data() {
     return {
-    goods: []
+    goods: [],
+    listHeight: [], // 存储区块的高度
+    scrollY: 0
     }
   },
   created() {
@@ -83,7 +84,7 @@ export default {
           // 调用scroll函数，实现滚动
           this._instBScroll()
           // 拿到数据以后计算高度
-          // this._calculateHeight();
+          this._calculateHeight();
         })
       }
     }, reponse => {
@@ -92,18 +93,59 @@ export default {
   },
   methods: {
     _instBScroll() {
-    this.menuScroll = new BScroll(this.$refs.menuWrapper, {
-      clik: true
-    })
-    this.goodsScroll = new BScroll(this.$refs.goodsWrapper, {
-      clik: true,
-      prototype: 3
-    })
-    this.goodsScroll.on('scroll', (pos) => {
-    this.scrollY = Math.abs(Math.round(pos.y))
-    })
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+      click: true
+      })
+      this.goodsScroll = new BScroll(this.$refs.goodsWrapper, {
+      click: true,
+      // 当 probeType 为 1 的时候，会非实时（屏幕滑动超过一定时间后）派发scroll 事件；
+      // 当 probeType 为 2 的时候，会在屏幕滑动的过程中实时的派发 scroll 事件；
+      // 当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
+      probeType: 3
+      })
+      // scroll 参数：{Object} {x, y} 滚动的实时坐标
+      // 触发时机：滚动过程中，具体时机取决于选项中的 probeType
+      this.goodsScroll.on('scroll', (pos) => {
+      this.scrollY = Math.abs(Math.round(pos.y))
+          console.log('scrollY', scrollY)
+      })
+    },
+    _calculateHeight() {
+      // food-list-hook类的添加只是为了能拿到food列表,例如，拿到的是多个类似整个粥品的区块
+      let foodList = this.$refs.goodsWrapper.getElementsByClassName('food-list-hook')
+      let height = 0
+      this.listHeight.push(height) // listHeight是一个递增的区间数组，是每个专区高度的累加
+      for (let i = 0; i < foodList.length; i++) {
+      let item = foodList[i]
+      height += item.clientHeight
+      this.listHeight.push(height)
+      console.log('heigt', height)
+      }
+    },
+    selectMenu(index, event) {
+      if (!event._constructed) { // 浏览器直接返回，去掉自带点击事件
+          return
+      }
+      let foodList = this.$refs.goodsWrapper.getElementsByClassName('food-list-hook')
+      let ref = foodList[index] // 取到index对应的DOM
+      this.goodsScroll.scrollToElement(ref, 300) // 滚动DOM所在位置
+    }
+  },
+  computed: {
+    currentIndex() { // currentIndex对应菜单栏的下标
+      for (let i = 0; i < this.listHeight.length; i++) { // 不要忘了加this引用
+        let height1 = this.listHeight[i];
+        let height2 = this.listHeight[i + 1];
+        // 获得了一个区间的上下范围，判断scrollY落到这个区间，!height2是判断最后一个区间
+        // 避免i溢出，>= 向下的是一个闭区间，这样第一个就会高亮了
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          console.log('i', i)
+          return i; // 映射到第5行menu的变化
+        }
+      }
+      return 0;
+    }
   }
- }
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
@@ -126,6 +168,14 @@ export default {
       line-height: 14px
       display: table
       padding: 0 12px 0 12px
+      &.current
+        position relative
+        margin-top -1px
+        background #fff
+        font-weight 700
+        z-index 10
+       .text
+         border-none()
       .icon
         display: inline-block
         vertical-align: top

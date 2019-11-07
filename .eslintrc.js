@@ -18,7 +18,8 @@ module.exports = {
     //关闭定义变量未使用提示/报错
     'no-unused-vars': 0,
     'indent': 'off',
-    	'no-trailing-spaces': 0,
+    'no-trailing-spaces': 0,
+    "no-tabs":"off"
   },
   parserOptions: {
     parser: 'babel-eslint'

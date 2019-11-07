@@ -49,12 +49,14 @@
         </li>
       </ul>
     </div>
+    <shopcart></shopcart>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
 import { prototype } from 'events';
+import shopcart from '../shopcart/shopcart'
 const ERR_OK = 0;
 export default {
   name: 'goods',
@@ -79,7 +81,7 @@ export default {
         this.goods = response.data;
         console.log('请求结果=' + this.seller)
         // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
-        // 但是DOM并没有变化，计算不到正确的高度
+        // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
         this.$nextTick(() => {
           // 调用scroll函数，实现滚动
           this._instBScroll()
@@ -107,7 +109,7 @@ export default {
       // 触发时机：滚动过程中，具体时机取决于选项中的 probeType
       this.goodsScroll.on('scroll', (pos) => {
       this.scrollY = Math.abs(Math.round(pos.y))
-          console.log('scrollY', scrollY)
+          console.log('scrollY', this.scrollY)
       })
     },
     _calculateHeight() {
@@ -145,6 +147,9 @@ export default {
       }
       return 0;
     }
+  },
+  components: {
+    shopcart
   }
 };
 </script>

@@ -204,51 +204,51 @@ export default {
   .goods-list-wapper
     flex: 1
     background: #ffffff
-  .title
-    padding-left: 14px
-    height: 26px
-    line-height: 26px
-    border: left 2px solide #f3f5f7
-    font-size: 12px
-    color: rgb(147, 153, 159)
-    background-color: #d9dde1
-  .food-item
-    display: flex
-    padding: 18px
-    border-1px(rgba(7, 17, 27, 0.1))
-  &:last-child
-    border-none()
-    margin-bottom: 0px
-    .icon
-      flex: 0 0 57px
-      margin-right: 10px
-      vertical-align: top
-    .content
-      flex: 1
-      .name
-        font-size: 17px
-        color: rgb(7, 17, 27)
-        line-height: 28px
-        margin: 0px
-      .desc, .extra
-        font-size: 10px
-        line-height: 12px
-        color: rgb(147, 153, 159)
-      .desc
-        margin: 8px 0 8px 0
-      .extra
-        line-height: 10px
-        .good-appraise
-          margin-left: 10px
-      .price
-        line-height: 24px
-        font-weight: 700
-        .now-price
-          margin-right: 8px
-          font-size: 14px
-          color: rgb(240, 20, 20)
-        .old-price
-          text-decoration: line-through // 划屌的横线
-          color: rgb(147, 153, 159)
+    .title
+      padding-left: 14px
+      height: 26px
+      line-height: 26px
+      border: left 2px solide #f3f5f7
+      font-size: 12px
+      color: rgb(147, 153, 159)
+      background-color: #d9dde1
+    .food-item
+      display: flex
+      padding: 18px
+      border-1px(rgba(7, 17, 27, 0.1))
+      &:last-child
+        border-none()
+        margin-bottom: 0px
+      .icon
+        flex: 0 0 57px
+        margin-right: 10px
+        vertical-align: top
+      .content
+        flex: 1
+        .name
+         font-size: 14px
+         color: rgb(7, 17, 27)
+         line-height: 14px
+         margin: 0px
+        .desc, .extra
           font-size: 10px
+          line-height: 12px
+          color: rgb(147, 153, 159)
+        .desc
+          margin: 8px 0 8px 0
+        .extra
+          line-height: 10px
+          .good-appraise
+            margin-left: 10px
+        .price
+          line-height: 24px
+          font-weight: 700
+          .now-price
+            margin-right: 8px
+            font-size: 14px
+            color: rgb(240, 20, 20)
+          .old-price
+            text-decoration: line-through // 划屌的横线
+            color: rgb(147, 153, 159)
+            font-size: 10px
 </style>

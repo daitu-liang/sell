@@ -49,7 +49,7 @@
         </li>
       </ul>
     </div>
-    <shopcart></shopcart>
+    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -79,7 +79,7 @@ export default {
       console.log('请求结果response=' + response)
       if (response.errno === ERR_OK) {
         this.goods = response.data;
-        console.log('请求结果=' + this.seller)
+        console.log('请求结果goods=' + this.goods)
         // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
         // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
         this.$nextTick(() => {

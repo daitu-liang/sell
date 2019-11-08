@@ -8,9 +8,11 @@
 					</div>
 				</div>
 				<div class="price">￥{{10}}</div>
-				<div class="desc">另需配送费￥{{0}}元</div>
+				<div class="desc">另需配送费￥{{deliveryPrice}}元</div>
 			</div>
-			<div class="content-right"></div>
+			<div class="content-right">
+				<div class="pay">￥{{minPrice}}起送</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -21,6 +23,16 @@ export default {
 	data() { 
 		return {
 
+		}
+	},
+	props: {
+		deliveryPrice: {
+			type: Number,
+			default: 0
+		},
+		minPrice: {
+			type: Number,
+			default: 0
 		}
 	}
 }
@@ -36,6 +48,7 @@ export default {
 		.content
 			display flex
 			background-color #141d27
+			color rgba(255,255,255,0.4)
 			.content-left
 				flex 1
 				.logo-wrapper
@@ -62,23 +75,29 @@ export default {
 				.price
 					display inline-block
 					vertical-align top
-					line-height 48px
+					line-height 24px
 					padding-right 12px
 					block-size border-box
 					font-size 16px
-					color rgb(255,255,255,0.4)
-					font-weight 700px
-					border-right 1px solide rgba(255,255,255,0.1)
+					font-weight 700
+					border-right 1px solid rgba(255,255,255,0.1)
+					margin 12px 0px
 				.desc
 					display inline-block
 					font-size 10px
-					color rgb(255,255,255,0.4)
 					font-weight 700px
 					line-height 24px
 					vertical-align top
 					margin 12px 0 12px 0
+					margin-left 10px
 			.content-right
 				flex 0 0 105px
 				width 105px
-
+				.pay
+					height 48px
+					font-size 12px
+					line-height 48px
+					font-weight 700
+					text-align center
+					background #2b333b
 </style>

@@ -43,6 +43,9 @@
                   <span class="old-price"
                         v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
@@ -57,6 +60,7 @@
 import BScroll from 'better-scroll'
 import { prototype } from 'events';
 import shopcart from '../shopcart/shopcart'
+import cartcontrol from '../cartcontrol/cartcontrol'
 const ERR_OK = 0;
 export default {
   name: 'goods',
@@ -109,7 +113,7 @@ export default {
       // 触发时机：滚动过程中，具体时机取决于选项中的 probeType
       this.goodsScroll.on('scroll', (pos) => {
       this.scrollY = Math.abs(Math.round(pos.y))
-          console.log('scrollY', this.scrollY)
+          // console.log('scrollY', this.scrollY)
       })
     },
     _calculateHeight() {
@@ -121,11 +125,11 @@ export default {
       let item = foodList[i]
       height += item.clientHeight
       this.listHeight.push(height)
-      console.log('heigt', height)
+      // console.log('heigt', height)
       }
     },
     selectMenu(index, event) {
-      if (!event._constructed) { // 浏览器直接返回，去掉自带点击事件
+      if (!event._constructed) { // 浏览器直接返回，去掉自带点击事件，浏览器上会触发两次事件
           return
       }
       let foodList = this.$refs.goodsWrapper.getElementsByClassName('food-list-hook')
@@ -141,15 +145,16 @@ export default {
         // 获得了一个区间的上下范围，判断scrollY落到这个区间，!height2是判断最后一个区间
         // 避免i溢出，>= 向下的是一个闭区间，这样第一个就会高亮了
         if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
-          console.log('i', i)
-          return i; // 映射到第5行menu的变化
+          // console.log('i', i)
+          return i; // 映射到第i行menu的变化
         }
       }
       return 0;
     }
   },
   components: {
-    shopcart
+    shopcart,
+    cartcontrol
   }
 };
 </script>
@@ -256,4 +261,8 @@ export default {
             text-decoration: line-through // 划屌的横线
             color: rgb(147, 153, 159)
             font-size: 10px
+        .cartcontrol-wrapper
+          position absolute
+          right 0
+          bottom 24px
 </style>

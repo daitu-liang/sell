@@ -52,7 +52,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-food="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -150,6 +150,17 @@ export default {
         }
       }
       return 0;
+    },
+    selectFoods() { // 选中的商品
+      let foods = []
+      this.goods.forEach((good) => { // 分类
+        good.foods.forEach((food) => { // 每个分类的food
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods // 传给shopcart
     }
   },
   components: {

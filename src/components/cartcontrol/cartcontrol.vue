@@ -2,9 +2,7 @@
 	<div class="cartcontrol">
 		<transition name="fade">
 			<div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="cartDescrease">
-				<transition name="innerx">
 					<i class="fa fa-minus-circle" aria-hidden="true"></i>
-				</transition>
 			</div>
 		</transition>
 		<div class="cart-count" v-show="food.count>0">{{food.count}}</div>
@@ -65,18 +63,10 @@ export default {
 			&.fade-enter-active, &.fade-leave-active // 进入动画的状态/离开动画的状态
 				transition all 0.4s linear // all 0 ease 0 --all=所有属性 0=持续 ease=动画类型  0=延迟多久出现动画
 				opacity 1 // 透明度
-				transform  translate3d(0,0,0) // 动画方法很多  平移 缩放 旋转(3D可开启硬件加速）
-				transform rotate(0)
+				transform translate3d(0,0,0) rotate(0) // 动画方法很多  平移 缩放 旋转(3D可开启硬件加速）
 			&.fade-enter, &.fade-leave-to  /* .fade-leave-active below version 2.1.8 */ 
 				opacity 0
-				transform translate3d(24px,0,0)
-				transform rotate(180deg)
-			// &.innerx-enter-active, &.innerx-leave-active
-			// 		transition all 0.4s linear 
-			// 		opacity 1
-			// &.innerx-enter, &.innerx-leave-to
-			// 		opacity 0
-			// 		transform rotate(180deg)
+				transform translate3d(24px,0,0) rotate(180deg)
 		.cart-count
 			display inline-block
 			color rgb(147,153,159)

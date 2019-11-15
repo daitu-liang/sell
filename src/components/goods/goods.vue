@@ -44,7 +44,8 @@
                         v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <!-- 在父组件监听到子组件触发的cart-add事件 -->
+                  <cartcontrol :food="food" @cart-add="cartAdd"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -52,7 +53,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :select-food="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -135,6 +136,16 @@ export default {
       let foodList = this.$refs.goodsWrapper.getElementsByClassName('food-list-hook')
       let ref = foodList[index] // 取到index对应的DOM
       this.goodsScroll.scrollToElement(ref, 300) // 滚动DOM所在位置
+    },
+    cartAdd(target) { // 点击+添加按钮 触发事件
+      this._drop(target)
+    },
+    _drop(target) {
+      // 优化体验
+      this.$nextTick(() => {
+        // 通过$ref访问shopcart子组件的drop方法
+        this.$refs.shopcart.drop(target)
+      })
     }
   },
   computed: {

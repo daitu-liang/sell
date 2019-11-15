@@ -1,6 +1,6 @@
 <template>
 	<div class="shopcart">
-		<div class="content">
+		<div class="content" @click="toggleList">
 			<div class="content-left">
 				<div class="logo-wrapper">
 					<div class="logo" :class="{'highlight' : totalPrice > 0}">
@@ -27,10 +27,33 @@
 					</transition>
 				</div>
 			</div>
+			<transition name="fade">
+				<div class="shopcart-list" v-show="listShow">
+					<div class="list-header">
+						<h1 class="title">购物车</h1>
+						<span class="empty" @click="empty">清空</span>
+					</div>
+					<div class="list-content" ref="listContent">
+						<ul>
+							<li class="food" v-for="food in selectFoods" :key="food.id">
+								<span class="name">{{food.name}}</span>
+								<div class="price">
+									<span> ￥{{food.price*food.count}}</span>
+								</div>
+								<div class="cartcontrol-wrapper">
+									<cartcontrol :food="food"></cartcontrol>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</transition>
 		</div>
 	</div>
 </template>
 <script>
+import cartcontrol from '../cartcontrol/cartcontrol'
+import BScroll from 'better-scroll';
 export default {
 	name: 'shopcart',
 	data() { 
@@ -173,12 +196,47 @@ export default {
 					// 具体原因也是搞不清楚，上面也已经false掉了
 					el.style.display = 'none'
 				}
+		},
+		listShow() {
+			if (!this.totalCount) {
+				this.fold = true
+				return false
+			}
+			// fold=true show=false不显示
+			let show = !this.fold
+			if (show) {
+				this.$nextTick(() => {
+					if (!this.scroll) {
+							this.scroll = new BScroll(this.$$refs.listContent, {
+							click: true
+						})
+					} else {
+						this.scroll.refresh()
+					}
+				})
+			}
+			return show
+		},
+		toggleList() {
+			if (!this.totalCount) {
+				return
+			}
+			this.fold = !this.fold
+		},
+		empty() {
+			this.selectFoods.forEach((food) => {
+				food.count = 0
+			})
 		}
+	},
+	components: {
+		cartcontrol
 	}
 
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+@import '../../commom/stylus/mixin'
 	.shopcart
 		position fixed
 		left 0px
@@ -271,11 +329,64 @@ export default {
 					left 32px
 					bottom 22px
 					z-index 180
-					transition: all 0.6s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+					transition all 0.6s cubic-bezier(0.49, -0.29, 0.75, 0.41)
 					.inner
 							width 16px
 							height 16px
 							border-radius 50%
 							background rgb(0,160,220)
 							transition all 0.6s linear
+			.shopcart-list
+				position absolute
+				top 0
+				left 0
+				z-index -1
+				width 100%
+				transform translate3d(0,-100%,0) // 整个列表相对当前自身高度做个Y偏移
+				&.fade-enter-active, &.fade-leave-active
+					transition all 0.5s linear
+					transform translate3d(0,-100%,0)
+				&.fade-enter, &.fade-leave-to
+					transform translate3d(0,0,0)
+				.list-header
+						height 40px
+						line-height 40px
+						padding 0px 18px
+						background #f3f5f7
+						border-bottom 1px solid rgba(7,17,27,0.1)
+						.title
+							float left
+							font-size 14px
+							color rgb(7,17,27)
+						.empty
+							float right
+							color rgb(0,160,220)
+							font-size 12px
+					.list-content
+						padding 0px 18px
+						max-height 217px
+						overflow hidden
+						background #ffffff
+						.food
+							position relative
+							padding 12px 0px
+							box-sizing border-box
+							border-1px(rgba(7,17,27,0.1))
+							.name
+								line-height 24px
+								font-size 14px
+								color rgb(7,17,27)
+							.price
+								position absolute
+								right 90px
+								bottom 12px
+								line-height 24px
+								font-size 14px
+								font-weight 700
+								color rgb(240,20,20)
+							.cartcontrol
+								position absolute
+								right 0
+								bottom 6px
+
 </style>

@@ -20,12 +20,12 @@
       <ul>
         <li v-for="item in goods"
             class="food-list food-list-hook"
-            :key="item.id" @click="clickSelectedFood(item,$event)">
+            :key="item.id" >
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li v-for="food in item.foods"
                 class="food-item"
-                :key="food.id">
+                :key="food.id" @click="clickSelectedFood(food,$event)">
               <div class="icon">
                 <img width="57"
                      height="57"
@@ -71,15 +71,14 @@ export default {
   props: {
     seller: {
       type: Object
-    },
-    selectedFood: {
     }
   },
   data() {
     return {
-    goods: [],
-    listHeight: [], // 存储区块的高度
-    scrollY: 0
+      goods: [],
+      listHeight: [], // 存储区块的高度
+      scrollY: 0,
+      selectedFood: {}
     }
   },
   created() {
@@ -157,6 +156,7 @@ export default {
         return
       }
       this.selectedFood = food
+      console.log('selectedFood', this.selectedFood)
       // 调用子组件foodDetail中的show方法 进行显示
       this.$refs.foodDetail.show()
     }

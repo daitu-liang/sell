@@ -239,7 +239,7 @@ export default {
 			})
 		},
 		hideList() {
-			this.fold = truew
+			this.fold = true
 		},
 		pay() {
 			if (this.tolPrice < this.minPrice) {

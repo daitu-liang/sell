@@ -53,7 +53,8 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice">
+    </shopcart>
   </div>
 </template>
 
@@ -81,10 +82,10 @@ export default {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     this.$http.get('/api/goods').then(response => {
       response = response.body;
-      console.log('请求结果response=' + response)
+      // console.log('请求结果response=' + response)
       if (response.errno === ERR_OK) {
         this.goods = response.data;
-        console.log('请求结果goods=' + this.goods)
+        // console.log('请求结果goods=' + this.goods)
         // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
         // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
         this.$nextTick(() => {

@@ -1,54 +1,59 @@
 <template>
-	<div class="shopcart">
-		<div class="content" @click="toggleList">
-			<div class="content-left">
-				<div class="logo-wrapper">
-					<div class="logo" :class="{'highlight' : totalPrice > 0}">
-						<i class="fa fa-cart-plus" aria-hidden="true" :class="{'highlight' : totalPrice > 0}"></i>
+	<div >
+		<div class="shopcart">
+			<div class="content" @click="toggleList">
+				<div class="content-left">
+					<div class="logo-wrapper">
+						<div class="logo" :class="{'highlight' : totalPrice > 0}">
+							<i class="fa fa-cart-plus" aria-hidden="true" :class="{'highlight' : totalPrice > 0}"></i>
+						</div>
+						<div class="num" v-show="totalCount > 0">{{totalCount}}</div>
 					</div>
-					<div class="num" v-show="totalCount > 0">{{totalCount}}</div>
+					<div class="price" :class="{'highlight' : totalPrice > 0}">￥{{totalPrice}}</div>
+					<div class="desc">另需配送费￥{{deliveryPrice}}元</div>
 				</div>
-				<div class="price" :class="{'highlight' : totalPrice > 0}">￥{{totalPrice}}</div>
-				<div class="desc">另需配送费￥{{deliveryPrice}}元</div>
-			</div>
-			<div class="content-right">
-				<div class="pay" :class="payClass">{{payDesc}}</div>
-			</div>
-			<div class="ball-container">
-				<div v-for="(ball,index) in balls" :key="index">
-					<transition
-					@before-enter="handleBeforeEnter"
-					@enter="handleEnter"
-					@after-enter="handleAfterEnter"
-					name="drop">
-					<div class="ball" v-show="ball.show"> <!--外层盒子-->
-						<div class="inner inner-hook"></div> <!--内层盒子-->
-					</div>
-					</transition>
+				<div class="content-right">
+					<div @click.stop.prevent="pay" class="pay" :class="payClass">{{payDesc}}</div>
 				</div>
-			</div>
-			<transition name="fade">
-				<div class="shopcart-list" v-show="listShow">
-					<div class="list-header">
-						<h1 class="title">购物车</h1>
-						<span class="empty" @click="empty">清空</span>
-					</div>
-					<div class="list-content" ref="listContent">
-						<ul>
-							<li class="food" v-for="food in selectFoods" :key="food.id">
-								<span class="name">{{food.name}}</span>
-								<div class="price">
-									<span> ￥{{food.price*food.count}}</span>
-								</div>
-								<div class="cartcontrol-wrapper">
-									<cartcontrol :food="food"></cartcontrol>
-								</div>
-							</li>
-						</ul>
+				<div class="ball-container">
+					<div v-for="(ball,index) in balls" :key="index">
+						<transition
+						@before-enter="handleBeforeEnter"
+						@enter="handleEnter"
+						@after-enter="handleAfterEnter"
+						name="drop">
+						<div class="ball" v-show="ball.show"> <!--外层盒子-->
+							<div class="inner inner-hook"></div> <!--内层盒子-->
+						</div>
+						</transition>
 					</div>
 				</div>
-			</transition>
+				<transition name="fade">
+					<div class="shopcart-list" v-show="listShow()">
+						<div class="list-header">
+							<h1 class="title">购物车</h1>
+							<span class="empty" @click="empty">清空</span>
+						</div>
+						<div class="list-content" ref="listContent">
+							<ul>
+								<li class="food" v-for="food in selectFoods" :key="food.id">
+									<span class="name">{{food.name}}</span>
+									<div class="price">
+										<span> ￥{{food.price*food.count}}</span>
+									</div>
+									<div class="cartcontrol-wrapper">
+										<cartcontrol :food="food"></cartcontrol>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</transition>
+			</div>
 		</div>
+		<transition name="fade">
+			<div class="list-mask" v-show="listShow()" @click="hideList()"></div>
+		</transition>
 	</div>
 </template>
 <script>
@@ -198,16 +203,19 @@ export default {
 				}
 		},
 		listShow() {
+			console.log('listShow-totalCount=' + this.totalCount);
+
 			if (!this.totalCount) {
 				this.fold = true
 				return false
 			}
 			// fold=true show=false不显示
 			let show = !this.fold
+			console.log(show)
 			if (show) {
 				this.$nextTick(() => {
 					if (!this.scroll) {
-							this.scroll = new BScroll(this.$$refs.listContent, {
+							this.scroll = new BScroll(this.$refs.listContent, {
 							click: true
 						})
 					} else {
@@ -218,21 +226,31 @@ export default {
 			return show
 		},
 		toggleList() {
+			console.log('totalCount' + this.totalCount)
 			if (!this.totalCount) {
 				return
 			}
+				console.log('this.fold' + this.fold)
 			this.fold = !this.fold
 		},
 		empty() {
 			this.selectFoods.forEach((food) => {
 				food.count = 0
 			})
+		},
+		hideList() {
+			this.fold = truew
+		},
+		pay() {
+			if (this.tolPrice < this.minPrice) {
+					return
+			}
+			window.alert(`支付￥{this.tolPrice}元`)
 		}
 	},
 	components: {
 		cartcontrol
 	}
-
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
@@ -388,5 +406,23 @@ export default {
 								position absolute
 								right 0
 								bottom 6px
+	.list-mask
+		position fixed
+		top 0
+		left 0
+		width 100%
+		height 100%
+		z-index 10
+		backdrop-filter blur(10px)
+		-webkit-backdrop-filter blur()
+		opacity 1
+		background rgba(7,17,27,0.6)
+		&.fade-enter-active, &.fade-leave-active
+			opacity 1
+			transition all 0.5s
+			background rgba(7,17,27,0.6)
+		&.fade-enter, &.fade-leave-to
+			opacity 0
+			background rgba(7,17,27,0)
 
 </style>

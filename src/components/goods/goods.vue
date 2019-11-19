@@ -142,6 +142,7 @@ export default {
       this.goodsScroll.scrollToElement(ref, 300) // 滚动DOM所在位置
     },
     cartAdd(target) { // 点击+添加按钮 触发事件
+    console.log('ppppppp')
       this._drop(target)
     },
     _drop(target) {
@@ -156,7 +157,6 @@ export default {
         return
       }
       this.selectedFood = food
-      console.log('selectedFood', this.selectedFood)
       // 调用子组件foodDetail中的show方法 进行显示
       this.$refs.foodDetail.show()
     }

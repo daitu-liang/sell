@@ -140,7 +140,7 @@ export default {
 	methods: {
 		// 当触发drop方法时小球开始掉落
 		drop(el) {
-			console.log(this.dropBalls)
+			// console.log(this.dropBalls)
 			for (let i = 0; i < this.balls.length; i++) {
 				let ball = this.balls[i]
 				if (!ball.show) { // 当小球显示状态为隐藏时
@@ -203,8 +203,7 @@ export default {
 				}
 		},
 		listShow() {
-			console.log('listShow-totalCount=' + this.totalCount);
-
+			// console.log('listShow-totalCount=' + this.totalCount);
 			if (!this.totalCount) {
 				this.fold = true
 				return false

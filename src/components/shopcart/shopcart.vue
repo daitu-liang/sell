@@ -210,7 +210,7 @@ export default {
 			}
 			// fold=true show=false不显示
 			let show = !this.fold
-			console.log(show)
+			// console.log(show)
 			if (show) {
 				this.$nextTick(() => {
 					if (!this.scroll) {
@@ -225,11 +225,11 @@ export default {
 			return show
 		},
 		toggleList() {
-			console.log('totalCount' + this.totalCount)
+			// console.log('totalCount' + this.totalCount)
 			if (!this.totalCount) {
 				return
 			}
-				console.log('this.fold' + this.fold)
+			// console.log('this.fold' + this.fold)
 			this.fold = !this.fold
 		},
 		empty() {

@@ -24,7 +24,7 @@
 						<cartcontrol :food="food"></cartcontrol>
 					</div>
 					<transition name="fade">
-						<div class="addShopCart" v-show="!food.count||food.count === 0" @click.stop.prevent="addFirst">加入购物车</div>
+						<div class="addShopCart" v-show="!food.count||food.count === 0" @click.stop.prevent="addFirst($event)">加入购物车</div>
 					</transition>
 				</div>
 				<split v-show="food.info"></split>
@@ -37,7 +37,6 @@
 		</div>
 	</transition>
 </template>
-
 <script>
 import BScroll from 'better-scroll'
 import cartcontrol from '../cartcontrol/cartcontrol'
@@ -80,9 +79,11 @@ export default {
 			this.showFlag = false
 		},
 		addFirst(event) {
+			console.log('addFirst1')
 			if (!event._constructed) {
 				return
 			}
+			console.log('addFirst2')
 			// 首次添加，因为el消失，找不到小球发出的位置，可以通过动画渐变，避免display：none
 			this.$emit('cart-add', event.target)
 			Vue.set(this.food, 'count', 1)

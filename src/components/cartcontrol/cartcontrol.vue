@@ -42,6 +42,7 @@ export default {
 			}
 			// 添加商品，触发一个事件，把当前DOM传递给goods.vue
 			// 向父组件触发一个自定义的cart-add事件，并将事件对象传递给父组件
+			console.log('addFirst1rrrrrrrrrrrr')
 			this.$emit('cart-add', event.target)
 		},
 		cartDescrease(event) {

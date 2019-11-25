@@ -9,26 +9,10 @@
 			<i class="fa fa-check-circle" aria-hidden="true"></i>
 			<span class="text">只看有内容的评价</span>
 		</div>
-		<div class="rating-wrapper">
-			<ul v-show="ratings&&ratings.length">
-				<li v-show="needShow(rating.rateType,rating.text)" v-for="rating in ratings" :key="rating.id" class="rating-item border-1px">
-					<div class="user">
-						<span class="name">{{rating.username}}</span>
-						<span class="avatar">{{rating.avatar}}</span>
-					</div>
-					<div class="time">{{rating.time}}</div>
-					<p class="text">
-						<span class="{'fa fa-thumbs-up':rating.rateType === 0,'fa fa-thumbs-down':rating.rateType === 1}">{{rating.text}}</span>
-					</p>
-				</li>
-			</ul>
-			<div class="no-ratings-data" v-show="!ratings||!ratings.length">暂无评价</div>
-		</div>
 	</div>
 </template>
 
 <script>
-
 	const POSITIVE = 0
 	const NEGATIVE = 1
 	const ALL = 2
@@ -72,27 +56,16 @@ export default {
 				return
 			}
 			this.mSelectType = type
-			console.log('selectType=' + this.mSelectType);
-			this.$emit('ratingtype.select', this.mSelectType)
+			console.log('------------->>selectType=' + this.mSelectType);
+			this.$emit('increment', 'selectType', this.mSelectType)
 		},
 		checkContent(event) {
 			if (!event._constructed) {
 				return
 			}
 			this.mOnlyContent = !this.mOnlyContent
-			console.log('checkContent=' + this.mOnlyContent);
-			this.$emit('checkContent', this.mOnlyContent)
-		},
-		needShow(type, text) {
-			console.log('this.selectType= ' + this.selectType + '  type= ' + type + ' text=' + text)
-			if (this.onlyContent && !text) {
-				return false
-			}
-			if (this.selectType === ALL) {
-				return true
-			} else {
-				return type === this.selectType
-			}
+			console.log('------------>checkContent=' + this.mOnlyContent);
+			this.$emit('increment', 'onlyContent', this.mOnlyContent)
 		}
 	},
 	computed: {
@@ -113,7 +86,6 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 	@import '../../commom/stylus/mixin'
 	.ratingselect
-		padding-bottom 50px
 		.rating-type
 			padding 18px 0px
 			margin 0 18px
@@ -155,39 +127,4 @@ export default {
 				font-size 12px
 				color rgb(147,153,159)
 				line-height 24px
-		.rating-wrapper
-			padding 0px 18px
-			.rating-item
-				position relative
-				padding 16px 0
-				border-1px(rgb(7,17,27,0.1))
-				.user
-					position absolute
-					right 0px
-					top 16px
-					line-height 12px
-					.username
-						display inline-block
-						font-size 10px
-						color rgb(147,153,159)
-						vertical-align top
-						margin-right 6px
-					.avatar
-						border-radius 50%
-				.time
-					font-size 10px
-					color rgb(147,153,159)
-					line-height 12px
-				.text
-					margin-top 6px
-					font-size 12px
-					color rgb(7,17,27)
-					line-height 12px
-					// &.fa-thumbs-up, &.fa-thumbs-down
-					// 	font-size 12px
-					// 	line-height 24px
-					// 	.fa-thumbs-up
-					// 		color rgb(0,160.220)
-					// 	.fa-thumbs-down
-					// 		color rgb(147,153,159)
 </style>

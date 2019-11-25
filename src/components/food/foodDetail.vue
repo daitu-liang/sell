@@ -21,7 +21,7 @@
 					</div>
 					<div class="cartcontrol-wrapper">
 						<!-- 在父组件监听到子组件触发的cart-add事件 -->
-						<cartcontrol :food="food" @cart-add="cartAdd"></cartcontrol>
+						<cartcontrol :food="food"  @cart-add="cartAdd"></cartcontrol>
 					</div>
 					<transition name="fade">
 						<div class="addShopCart" v-show="!food.count||food.count === 0" @click.stop.prevent="addFirst">加入购物车</div>
@@ -43,7 +43,7 @@
 									<span class="username">{{rating.username}}</span>
 									<img class="avatar" :src="rating.avatar" height="12" width="12"/>
 								</div>
-								<div class="time">{{rating.rateTime}}</div>
+								<div class="time">{{rating.rateTime | formatDate}}</div>
 								<p class="text">
 									<span  :class="{'fa fa-thumbs-up':rating.rateType === 0,'fa fa-thumbs-down':rating.rateType === 1}"></span>{{rating.text}}
 								</p>
@@ -62,6 +62,7 @@ import cartcontrol from '../cartcontrol/cartcontrol'
 import split from '../split/split'
 import Vue from 'vue'
 import ratingselect from '../ratingselect/ratingselect'
+import { formatDate } from '../../commom/js/date'
 	const POSITIVE = 0
 	const NEGATIVE = 1
 	const ALL = 2
@@ -124,9 +125,9 @@ export default {
 			console.log('type', type)
 			// this[type] 当前vue对象里，声明的变量（data中的变量），只要type相同，就赋值typeValue给该变量
 			this[type] = typeValue
-			console.log('this[type]', this[type])
-			console.log('selectType', this.selectType)
-			console.log('onlyContent', this.onlyContent)
+			// console.log('this[type]', this[type])
+			// console.log('selectType', this.selectType)
+			// console.log('onlyContent', this.onlyContent)
 			this.$nextTick(() => {
 				this.scroll.refresh()
 			})
@@ -142,9 +143,14 @@ export default {
 				return type === this.selectType
 			}
 		},
-		cartAdd(event) {
-			console.log('event.target=' + event.target)
-			this.$emit('cart-add', event.target)
+		cartAdd(target) {
+			// console.log('detail-cartAdd', target)
+				this.$emit('cart-add', target)
+		}
+	},
+	filters: {
+		formatDate(time) {
+			return formatDate(new Date(time), 'yyyy-MM-dd hh:mm')
 		}
 	}
  }

@@ -23,10 +23,10 @@ const routes = [
     name: 'seller',
     component: seller
   },
-   // 重定向，因为首次进入页面时，它的路径是 ‘/’。
+  // 重定向，因为首次进入页面时，它的路径是 ‘/’。
   {
-  path: '/',
-  redirect: '/goods'
+    path: '/',
+    redirect: '/goods'
   }
 ]
 

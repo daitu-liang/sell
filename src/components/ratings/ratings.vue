@@ -84,9 +84,6 @@ export default {
   props: {
     seller: {
       type: Object
-    },
-    food: {
-      type: Object
     }
   },
   components: {
@@ -139,7 +136,7 @@ export default {
 .ratings
   position absolute
   left 0px
-  bottom 0px
+  bottom 47px
   top 174px
   width 100%
   overflow hidden

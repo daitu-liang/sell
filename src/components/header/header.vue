@@ -114,7 +114,6 @@ export default {
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 @import '../../commom/stylus/mixin'
-@import '../../commom/stylus/icon'
 @import '../../commom/stylus/base'
 .header
   position: relative

@@ -229,7 +229,7 @@ export default {
         text-align center
         border-right 1px solid rgba(7,17,27,0.1)
         &:last-child
-          border-none()
+          border none
         .desc
           font-size 10px
           color rgb(147,153,159)

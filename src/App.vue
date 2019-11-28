@@ -17,20 +17,28 @@
 
 <script>
 import header from './components/header/header'
+import { urlParse } from '../src/commom/js/urlParse'
 const ERR_OK = 0;
 export default {
  data() {
     return {
-      seller: {}
+      seller: {
+          id: (() => {
+          let queryParam = urlParse()
+          console.log('queryParam', queryParam)
+          return queryParam.id
+        })()
+      }
     };
   },
   created() {
     this.$http.get('/api/seller').then(response => {
      response = response.body;
-      console.log('请求结果response=' + response)
       if (response.errno === ERR_OK) {
       this.seller = response.data;
-      console.log('请求结果=' + this.seller)
+      console.log('请求结果this.seller.id1=' + this.seller.id)
+      this.seller = Object.assign({}, this.seller, response.data)
+      console.log('请求结果this.seller.id2=' + this.seller.id)
       }
       }, reponse => {
 

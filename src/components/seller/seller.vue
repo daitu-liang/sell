@@ -66,11 +66,14 @@
 import split from '../split/split'
 import star from '../star/star'
 import BScroll from 'better-scroll'
+import { saveToLocal, loadFromlLocal } from '../../commom/js/store'
 export default {
   name: 'seller',
   data() {
     return {
-      favorite: false
+      favorite: (() => {
+        return loadFromlLocal(this.seller.id, 'favorite', false)
+      })()
     }
   },
   props: {
@@ -87,58 +90,69 @@ export default {
     star,
     split
   },
+  // 组件实例创建完成，属性已经绑定，但DOM还未生成，$el属性还不存在
+  // this.data 已经被初始化 this.$el undefined
   created() {
-    console.log('_initScroll-created', 1)
+    // console.log('created', 1)
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    this._initScroll()
-    this._initPicsScroll()
   },
-  ready() {
-    console.log('_initScroll-ready', 1)
-    this._initScroll()
-    this._initPicsScroll()
-  },
+// mounted执行时机 优先于watch中的seller
   watch: {
     'seller'() {
-      console.log('_initScroll-watch', 1)
+      console.log('watch', 1)
       this._initScroll()
       this._initPicsScroll()
     }
   },
+  // 挂载结束状态 this.data  this.$el this.message全部已经被初始化
+  // DOM被渲染完之后，mounted自动执行，在mounted中可以安全使用DOM,但是
+  // 高度计算有问题，无法滚动，因为seller异步获取，我的滚动需要seller数据把
+  // 内容撑开，so一开始内容小于我们定义的wrapper，没有撑开，无法滑动
+  // 也就是说mounted执行的时候，由于seller获取是异步，通过props还没传数据过来（传过来的是空），无法撑大内容，
+  // 所以通过watch 监听，seller值发生变化就行进行绑定滑动
+  mounted() {
+    console.log('mounted', 1)
+    this._initScroll()
+    this._initPicsScroll()
+  },
   methods: {
     _initScroll() {
-      console.log('_initScroll', 1)
+      console.log('----seller=', this.seller)
       this.$nextTick(() => {
         if (!this.scroll) {
+          console.log('_initScroll绑定')
           this.scroll = new BScroll(this.$refs.sellerWrapper, {
             click: true
           })
         } else {
+          console.log('_initScroll刷新')
           this.scroll.refresh()
         }
       })
     },
     _initPicsScroll() {
-      console.log('_initPicsScroll-----<')
       if (this.seller.pics) {
         let picWidth = 120
         let picMarginRight = 6
         let arrayLegthw = this.seller.pics
         let arrayLegth = this.seller.pics.length
         let totalWidth = (picWidth + picMarginRight) * this.seller.pics.length - picMarginRight
-        this.$refs.picList.style.width = totalWidth + 'px'
-        console.log('_initPicsScroll-----totalWidth=' + totalWidth)
-        if (!this.picScroll) {
-           console.log('_initPicsScroll执行绑定', this.seller.pics)
-          this.$nextTick(() => {
-            this.picScroll = new BScroll(this.$refs.picWrapper, {
-              scrollX: true, // 横向滚动
-              eventPassthrough: 'vertical' // 横向滑动的同时禁止垂直滑动
+         console.log('_initPicsScroll-----this.$refs.picList=' + this.$refs.picList)
+        if (this.$refs.picList) {
+          this.$refs.picList.style.width = totalWidth + 'px'
+          console.log('_initPicsScroll-----totalWidth=' + totalWidth)
+          if (!this.picScroll) {
+            console.log('-------_initPicsScroll执行绑定', this.seller.pics)
+            this.$nextTick(() => {
+              this.picScroll = new BScroll(this.$refs.picWrapper, {
+                scrollX: true, // 横向滚动
+                eventPassthrough: 'vertical' // 横向滑动的同时禁止垂直滑动
+              })
             })
-          })
-        } else {
-          this.picScroll.refresh()
-          console.log('-----_initPicsScroll---刷新--')
+          } else {
+            this.picScroll.refresh()
+            console.log('-----_initPicsScroll---刷新--')
+          }
         }
       }
     },
@@ -147,6 +161,7 @@ export default {
         return
       }
       this.favorite = !this.favorite
+      saveToLocal(this.seller.id, 'favorite', this.favorite)
     }
   }
  };

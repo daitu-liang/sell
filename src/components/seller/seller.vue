@@ -163,6 +163,9 @@ export default {
       this.favorite = !this.favorite
       saveToLocal(this.seller.id, 'favorite', this.favorite)
     }
+  },
+  deactivated() {
+     console.log('deactivated', 1)
   }
  };
 </script>

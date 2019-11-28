@@ -11,36 +11,39 @@
     </div>
   <!-- 路由出口 -->
   <!-- 路由匹配到的组件将渲染在这里 -->
+  <keep-alive>
   <router-view :seller="seller"></router-view>
+  </keep-alive>
   </div>
 </template>
 
 <script>
 import header from './components/header/header'
-import { urlParse } from '../src/commom/js/urlParse'
+import { getUrlParams } from '../src/commom/js/urlParamsUtils'
 const ERR_OK = 0;
 export default {
  data() {
     return {
       seller: {
           id: (() => {
-          let queryParam = urlParse()
+          let queryParam = getUrlParams('id')
           console.log('queryParam', queryParam)
-          return queryParam.id
+          return queryParam
         })()
       }
     };
   },
   created() {
-    this.$http.get('/api/seller').then(response => {
+    this.$http.get('/api/seller?id=' + this.seller.id).then(response => {
      response = response.body;
       if (response.errno === ERR_OK) {
-      this.seller = response.data;
-      console.log('请求结果this.seller.id1=' + this.seller.id)
+      // this.seller = response.data;
+      // console.log('请求结果this.seller.id1=' + this.seller.id)
+      // this.seller属性 加上response.data
       this.seller = Object.assign({}, this.seller, response.data)
       console.log('请求结果this.seller.id2=' + this.seller.id)
       }
-      }, reponse => {
+    }, reponse => {
 
     })
   },

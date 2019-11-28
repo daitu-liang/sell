@@ -14,8 +14,8 @@ export function urlParse () {
   if (arr) {
     arr.forEach((item) => {
       const tempArr = item.substring(1).split('=') // 先分割取到id=123454，之后用=号分开
-      const key = tempArr[0]
-      const val = tempArr[1]
+      const key = decodeURIComponent(tempArr[0])
+      const val = decodeURIComponent(tempArr[1])
       console.log('key', key + '=' + val)
       obj[key] = val
     })

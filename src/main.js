@@ -10,4 +10,4 @@ Vue.use(VueResource)
 new Vue({
   router, // 注入到根实例中
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app') // 给vue挂载到app的Dom中

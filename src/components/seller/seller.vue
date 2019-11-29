@@ -139,7 +139,7 @@ export default {
         let totalWidth = (picWidth + picMarginRight) * this.seller.pics.length - picMarginRight
          console.log('_initPicsScroll-----this.$refs.picList=' + this.$refs.picList)
         if (this.$refs.picList) {
-          this.$refs.picList.style.width = totalWidth + 'px'
+          this.$refs.picList.style.width = totalWidth + 'px' // 撑开ul
           console.log('_initPicsScroll-----totalWidth=' + totalWidth)
           if (!this.picScroll) {
             console.log('-------_initPicsScroll执行绑定', this.seller.pics)

@@ -145,12 +145,14 @@ export default {
     .rating-header
       display flex
       padding 18px 14px 18px 24px
+      @media only screen and (max-width 360px) // 设备宽度低于360 
+        padding 18px 8px 18px 8px
       .rating-left
         flex  0 0 130px
         width 130px
         text-align center
         border-right 1px solid rgba(7,17,27,0.1)
-        @media only screen and (max-width 320px)
+        @media only screen and (max-width 360px)
           flex 0 0 110px
           width 110px
         .core-text
@@ -170,7 +172,7 @@ export default {
       .rating-right
         flex 1
         padding 0px 0 6px 24px
-        @media only screen and (max-width 320px)
+        @media only screen and (max-width 360px)
           padding-left 6px
         .star-des
           line-height 18px
@@ -181,13 +183,13 @@ export default {
             display: inline-block
           .icon
             display inline-block
-            margin-left 12px
+            margin-left 8px
             margin-top 8px
             line-height 18px
           .score
             display inline-block
             font-size 12px
-            margin-left 12px
+            margin-left 8px
             color rgb(255,163,0)
             line-height 18px
         .delivery-des

@@ -92,17 +92,29 @@ export default {
     ratingselect
   },
   created() {
-    this.$http.get('/api/ratings').then((response) => {
-      response = response.body
-      if (response.errno === ERR_OK) {
-        this.ratings = response.data
+    // axios请求
+    window.axios.get('/api/ratings').then((res) => {
+      if (res && res.status === 200 && res.data && res.data.errno === ERR_OK) {
+        this.ratings = res.data.data
         this.$nextTick(() => {
           this.scroll = new BScroll(this.$refs.ratings, {
-            click: true
+            clickL: true
           })
         })
       }
     })
+    // vue-resource
+    // this.$http.get('/api/ratings').then((response) => {
+    //   response = response.body
+    //   if (response.errno === ERR_OK) {
+    //     this.ratings = response.data
+    //     this.$nextTick(() => {
+    //       this.scroll = new BScroll(this.$refs.ratings, {
+    //         click: true
+    //       })
+    //     })
+    //   }
+    // })
   },
   methods: {
     needShow(type, text) {

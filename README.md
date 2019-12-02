@@ -39,4 +39,4 @@ vue2.6.10 + vue-router3.1.3 + better-scroll2.0.0-beta.2 + vue-resource1.5.1 + vu
 分支v1.0.0中 前面商品模块代码照着视频敲了，后面评论和商家自己敲了，但功能都按视频一样实现了；图标采用Font Awesome；  
 
 
-后续 再改造下，请求更换axios，加点常见功能，
+master，请求框架更换为axios

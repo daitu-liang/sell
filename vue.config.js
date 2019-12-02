@@ -6,10 +6,11 @@ var goods = appData.goods
 var ratings = appData.ratings
 const path = require('path')
 function resolve (dir) {
- return path.join(__dirname, dir)
+  return path.join(__dirname, dir)
 }
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? './' : './', // publicPath代替
   lintOnSave: true,
   chainWebpack: config => {
     config.resolve.alias

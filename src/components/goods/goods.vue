@@ -84,7 +84,7 @@ export default {
   async created() {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     // const axios = require('axios').default // 局部引入axios
-    // console.log('window', window)
+    console.log('window', window)
     // axios写法一
    window.axios.get('/api/goods').then((response) => {
       // debugger

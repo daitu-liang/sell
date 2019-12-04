@@ -26,7 +26,13 @@ const routes = [
   // 重定向，因为首次进入页面时，它的路径是 ‘/’。
   {
     path: '/',
-    redirect: '/goods'
+    redirect: '../views/userInfo/login'
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () =>
+      import('../views/userInfo/login')
   }
 ]
 

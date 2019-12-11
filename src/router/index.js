@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import goods from '../components/goods/goods'
-import ratings from '../components/ratings/ratings'
-import seller from '../components/seller/seller'
 Vue.use(VueRouter)
 
 // 2. 定义路由
@@ -39,6 +37,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: () => import('@/views/About')
+  },
+  {
+    path: '/mainHome',
+    name: 'mainHome',
+    component: () => import('@/views/mainHome/index')
   },
   {
     path: '/home',

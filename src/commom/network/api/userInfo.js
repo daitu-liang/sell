@@ -1,4 +1,5 @@
 /**
+ * 用户相关模块
  * 按模块进行接口管理
  * 在命名的时候 按模块命名，避免命名冲突
  */
@@ -9,7 +10,8 @@ import qs from 'qs'
 const userInfo = {
   // 登录接口
   login (params) {
-    return axios.post(`${base.sp}super_service/api/user/login`, qs.stringify(params))
+    // return axios.post(`${base.sp}super_service/api/user/login`, qs.stringify(params))
+    return axios.post('super_service/api/user/login', qs.stringify(params))
   }
 }
 export default {

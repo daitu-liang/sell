@@ -1,5 +1,5 @@
 <template>
-  <div id="appHome">
+  <div class="appHome">
     <v-header :seller = "seller"></v-header>
     <div class="tab border-1px">
     <!-- 使用 router-link 组件来导航. -->
@@ -58,7 +58,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
 // 引入我们写好的mixin.styl文件
   @import '~stylus/mixin.styl'
-#appHome
+.appHome
   .tab
     display: flex
     width: 100%

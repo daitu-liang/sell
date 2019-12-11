@@ -1,11 +1,12 @@
 import axios from 'axios'
 // import qs from 'qs' // 引入qs模块，用来序列化post类型的数据
 import { Toast } from 'vant'
+import base from './api/base'
 // 不建议 axios挂载到VUE，"会污染vue"框架，让Vue干自己任务，当然挂载到vue功能也可以实现
 // Vue.prototype.$axios = axios
 // 创建一个axios实例
 const instance = axios.create({
-  baseURL: 'https://wx.palmnest.com/', // url = base url + request url
+  baseURL: base.sp, // url = base url + request url
   withCredentials: true, // 当跨域请求时发送cookie
   timeout: 15000 // 请求时间
 })
@@ -20,8 +21,14 @@ instance.interceptors.request.use((config) => {
   //   config.data = qs.stringify(config.data) // 利用qs做json序列化
   // }LocalForage.getItem('openId')
 
-  // const token = LocalForage.getItem('token')
-  // console.log('interceptors1', 'axios.interceptors.request.use-----token=' + token)
+  // config.headers['Access-Control-Allow-Origin'] = '*'
+  // config.headers['Access-Control-Allow-Methods'] = 'POST'
+  // config.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type,Authorization'
+
+  window.LocalForage.getItem('token').then((res) => {
+    console.log('interceptors1', 'axios.interceptors.request.use-----token=' + res)
+    res && (config.headers.token = res)
+  })
   // token && (config.headers.token = token)
   config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
   return config

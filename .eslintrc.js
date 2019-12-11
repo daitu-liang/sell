@@ -32,5 +32,8 @@ module.exports = {
       mocha: true
     }
   }],
-
+  globals: {
+    'router': true,
+    'LocalForage':true
+  }
 }

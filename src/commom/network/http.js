@@ -1,5 +1,5 @@
 import axios from 'axios'
-import qs from 'qs' // 引入qs模块，用来序列化post类型的数据
+// import qs from 'qs' // 引入qs模块，用来序列化post类型的数据
 import { Toast } from 'vant'
 // 不建议 axios挂载到VUE，"会污染vue"框架，让Vue干自己任务，当然挂载到vue功能也可以实现
 // Vue.prototype.$axios = axios
@@ -9,16 +9,21 @@ const instance = axios.create({
   withCredentials: true, // 当跨域请求时发送cookie
   timeout: 15000 // 请求时间
 })
+
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
   // Do something before request is sent
-  if (config.json) {
-    config.headers['Content-Type'] = 'application/json'
-  } else {
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-    config.data = qs.stringify(config.data) // 利用qs做json序列化
-  }
-  console.log('interceptors1', 'axios.interceptors.request.use')
+  // if (config.json) {
+  //   config.headers['Content-Type'] = 'application/json'
+  // } else {
+  //   config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+  //   config.data = qs.stringify(config.data) // 利用qs做json序列化
+  // }LocalForage.getItem('openId')
+
+  // const token = LocalForage.getItem('token')
+  // console.log('interceptors1', 'axios.interceptors.request.use-----token=' + token)
+  // token && (config.headers.token = token)
+  config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
   return config
 }, (error) => {
   // Do something with request error
@@ -31,9 +36,10 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use((response) => {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
-  console.log('interceptors2', 'axios.interceptors.response.use')
+  console.log('interceptors2', 'axios.interceptors.response.use' + response.status)
   if (response && response.status === 200) {
-    if (response.data && response.data.code === 200) {
+    console.log('response.data.data', response.data.data)
+    if (response.data && response.data.code === '200') {
       console.log('response.data.data', response.data.data)
       return Promise.resolve(response.data.data)
     } else {

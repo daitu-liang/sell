@@ -84,7 +84,7 @@
   </div>
 </template>
 <script>
-import star from '../star/star'
+import star from 'components/star/star'
 export default {
   props: {
     seller: {
@@ -113,8 +113,8 @@ export default {
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-@import '../../commom/stylus/mixin'
-@import '../../commom/stylus/base'
+@import '~commom/stylus/mixin'
+@import '~stylus/base'
 .header
   position: relative
   color: rgb(255, 255, 255)

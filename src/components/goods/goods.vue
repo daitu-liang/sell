@@ -62,9 +62,9 @@
 <script>
 import BScroll from 'better-scroll'
 import { prototype } from 'events';
-import shopcart from '../shopcart/shopcart'
-import cartcontrol from '../cartcontrol/cartcontrol'
-import foodDetail from '../food/foodDetail'
+import shopcart from 'components/shopcart/shopcart'
+import cartcontrol from 'components/cartcontrol/cartcontrol'
+import foodDetail from 'components/food/foodDetail'
 const ERR_OK = 0;
 export default {
   name: 'goods',
@@ -85,27 +85,29 @@ export default {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     // const axios = require('axios').default // 局部引入axios
     console.log('window', window)
-    // axios写法一
-   window.axios.get('/api/goods').then((response) => {
-      // debugger
-      let state = response.status;
-      console.log('axios请求结果response=' + response.data.errno)
-      if (response && response.status === 200 && response.data && response.data.errno === ERR_OK) {
-        this.goods = response.data.data;
-        console.log('axios请求结果goods=' + this.goods)
-        // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
-        // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
-        this.$nextTick(() => {
-          // 调用scroll函数，实现滚动
-          this._instBScroll()
-          // 拿到数据以后计算高度
-          this._calculateHeight();
-        })
-      }
-    })
-    .catch((error) => {
-      console.log('axios请求结果catch=' + error)
-    })
+  //   window.axios.interceptors.response.eject()
+  //   // axios写法一
+  //  window.axios.get('/api/goods').then((response) => {
+  //     // debugger
+  //     let state = response.status;
+  //     console.log('axios请求结果response=' + response.data.errno)
+  //     debugger
+  //     if (response && response.status === 200 && response.data && response.data.errno === ERR_OK) {
+  //       this.goods = response.data.data;
+  //       console.log('axios请求结果goods=' + this.goods)
+  //       // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
+  //       // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
+  //       this.$nextTick(() => {
+  //         // 调用scroll函数，实现滚动
+  //         this._instBScroll()
+  //         // 拿到数据以后计算高度
+  //         this._calculateHeight();
+  //       })
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log('axios请求结果catch=' + error)
+  //   })
 
     // axios写法二 方法需要加async
     // const res = await window.axios.get('/api/goods')
@@ -122,24 +124,24 @@ export default {
     //     })
     // }
     // vue-resource
-    // this.$http.get('/api/goods').then(response => {
-    //   response = response.body;
-    //   console.log('请求结果response=' + response)
-    //   if (response.errno === ERR_OK) {
-    //     this.goods = response.data;
-    //     console.log('请求结果goods=' + this.goods)
-    //     // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
-    //     // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
-    //     this.$nextTick(() => {
-    //       // 调用scroll函数，实现滚动
-    //       this._instBScroll()
-    //       // 拿到数据以后计算高度
-    //       this._calculateHeight();
-    //     })
-    //   }
-    // }, reponse => {
+    this.$http.get('/api/goods').then(response => {
+      response = response.body;
+      console.log('请求结果response=' + response)
+      if (response.errno === ERR_OK) {
+        this.goods = response.data;
+        console.log('请求结果goods=' + this.goods)
+        // 初始化betterScroll的时候，DOM的更新是异步的,所以我们在这虽然改变了数据，
+        // 但是DOM并没有变化，计算不到正确的高度,nextTick在DOM更新后执行
+        this.$nextTick(() => {
+          // 调用scroll函数，实现滚动
+          this._instBScroll()
+          // 拿到数据以后计算高度
+          this._calculateHeight();
+        })
+      }
+    }, reponse => {
 
-    // })
+    })
    },
   methods: {
     _instBScroll() {
@@ -234,7 +236,7 @@ export default {
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
-@import '../../commom/stylus/mixin'
+@import '~stylus/mixin'
 .goods
   display: flex
   position: absolute

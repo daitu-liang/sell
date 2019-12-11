@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import split from '../split/split'
-import star from '../star/star'
-import ratingselect from '../ratingselect/ratingselect'
-import { formatDate } from '../../commom/js/date'
+import split from 'components/split/split'
+import star from 'components/star/star'
+import ratingselect from 'components/ratingselect/ratingselect'
+import { formatDate } from 'js/date'
 import BScroll from 'better-scroll'
 const ERR_OK = 0;
 const POSITIVE = 0
@@ -93,28 +93,28 @@ export default {
   },
   created() {
     // axios请求
-    window.axios.get('/api/ratings').then((res) => {
-      if (res && res.status === 200 && res.data && res.data.errno === ERR_OK) {
-        this.ratings = res.data.data
-        this.$nextTick(() => {
-          this.scroll = new BScroll(this.$refs.ratings, {
-            clickL: true
-          })
-        })
-      }
-    })
-    // vue-resource
-    // this.$http.get('/api/ratings').then((response) => {
-    //   response = response.body
-    //   if (response.errno === ERR_OK) {
-    //     this.ratings = response.data
+    // window.axios.get('/api/ratings').then((res) => {
+    //   if (res && res.status === 200 && res.data && res.data.errno === ERR_OK) {
+    //     this.ratings = res.data.data
     //     this.$nextTick(() => {
     //       this.scroll = new BScroll(this.$refs.ratings, {
-    //         click: true
+    //         clickL: true
     //       })
     //     })
     //   }
     // })
+    // vue-resource
+    this.$http.get('/api/ratings').then((response) => {
+      response = response.body
+      if (response.errno === ERR_OK) {
+        this.ratings = response.data
+        this.$nextTick(() => {
+          this.scroll = new BScroll(this.$refs.ratings, {
+            click: true
+          })
+        })
+      }
+    })
   },
   methods: {
     needShow(type, text) {
@@ -144,7 +144,7 @@ export default {
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import '../../commom/stylus/mixin'
+  @import '~stylus/mixin'
 .ratings
   position absolute
   left 0px

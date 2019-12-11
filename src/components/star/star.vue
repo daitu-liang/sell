@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-@import '../../commom/stylus/mixin'
+@import '~stylus/mixin'
 .star
     .star-item
         display: inline-block

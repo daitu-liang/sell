@@ -63,10 +63,10 @@
 </template>
 
 <script>
-import split from '../split/split'
-import star from '../star/star'
+import split from 'components/split/split'
+import star from 'components/star/star'
 import BScroll from 'better-scroll'
-import { saveToLocal, loadFromlLocal } from '../../commom/js/store'
+import { saveToLocal, loadFromlLocal } from 'js/store'
 export default {
   name: 'seller',
   data() {
@@ -170,7 +170,7 @@ export default {
  };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import '../../commom/stylus/mixin'
+  @import '~stylus/mixin'
 .seller
   width 100%
   position absolute

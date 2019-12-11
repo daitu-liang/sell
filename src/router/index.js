@@ -16,23 +16,34 @@ const routes = [
   {
     path: '/ratings',
     name: 'ratings',
-    component: ratings
+    // component: ratings
+    component: () => import('components/ratings/ratings')
   },
   {
     path: '/seller',
     name: 'seller',
-    component: seller
+    component: () => import('components/seller/seller')
+
   },
   // 重定向，因为首次进入页面时，它的路径是 ‘/’。
   {
     path: '/',
-    redirect: '../views/userInfo/login'
+    redirect: '/login'
   },
   {
     path: '/login',
     name: 'login',
-    component: () =>
-      import('../views/userInfo/login')
+    component: () => import('views/userInfo/login')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('@/views/About')
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/Home')
   }
 ]
 
@@ -42,5 +53,4 @@ const router = new VueRouter({
   routes, // (缩写) 相当于 routes: routes
   linkActiveClass: 'active' // 默认值: "router-link-active",全局配置 <router-link> 的默认“激活 class 类名”
 })
-
 export default router

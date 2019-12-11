@@ -1,28 +1,40 @@
 <template>
-  <div class="app">
+  <div id="appLoggin">
     <div class="logn">登录界面</div>
-    <button @click="login">点击登录</button>
+    <button @click="toLogin">点击登录</button>
+    <p>{{loginDes}}</p>
   </div>
+
 </template>
 
 <script>
+import apiMixins from '../../commom/network/api/userInfo'
 export default {
-  name: 'app',
+  mixins: [apiMixins],
+  name: 'loginIndex',
   data() { 
     return {
-
+      loginDes: '888'
     }
   },
   methods: {
-    login () {
-      window.api.userInfo.login({
-        'userName': 'cheng',
-        'password': 'c12345678',
-        'deviceType': '1',
-        'deviceNo': '5555'
-      }).then(res => {
-        console.log('login', res)
-      })
+    toLogin () {
+       this.$router.push({
+          path: '/home'
+        })
+      // this.login({
+      //   'userName': 'cheng',
+      //   'password': 'c12345678',
+      //   'deviceType': '1',
+      //   'deviceNo': '5555'
+      // }).then(res => {
+      //   this.loginDes = window.qs.stringify(res)
+      //   console.log('login', res)
+      //   LocalForage.setItem('id', res.id)
+      //   LocalForage.setItem('fullName', res.fullName)
+      //   LocalForage.setItem('token', res.token)
+       
+      // })
     }
   }
 
@@ -30,7 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .app{
+  #appLoggin{
 
   }
 </style>

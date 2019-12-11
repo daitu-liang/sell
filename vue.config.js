@@ -17,7 +17,11 @@ module.exports = {
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
       .set('components', resolve('src/components'))
-      .set('stylus', resolve('../../commom/stylus'))
+      .set('commom', resolve('src/commom'))
+      .set('views', resolve('src/views'))
+      .set('stylus', resolve('src/commom/stylus'))
+      .set('js', resolve('src/commom/js'))
+      .set('css', resolve('src/commom/css'))
   },
   devServer: {
     before (app) {

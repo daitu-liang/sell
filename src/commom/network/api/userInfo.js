@@ -9,8 +9,9 @@ import qs from 'qs'
 const userInfo = {
   // 登录接口
   login (params) {
-    console.log('login (params)', qs.stringify(params))
-    return axios.post(`${base.sp}/super_service/api/user/login`, qs.stringify(params))
+    return axios.post(`${base.sp}super_service/api/user/login`, qs.stringify(params))
   }
 }
-export default userInfo
+export default {
+  methods: userInfo
+}

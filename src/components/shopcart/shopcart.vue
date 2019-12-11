@@ -57,7 +57,7 @@
 	</div>
 </template>
 <script>
-import cartcontrol from '../cartcontrol/cartcontrol'
+import cartcontrol from 'components/cartcontrol/cartcontrol'
 import BScroll from 'better-scroll';
 export default {
 	name: 'shopcart',
@@ -253,7 +253,7 @@ export default {
 }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-@import '../../commom/stylus/mixin'
+@import '~stylus/mixin'
 	.shopcart
 		position fixed
 		left 0px

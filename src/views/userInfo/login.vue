@@ -54,9 +54,9 @@ export default {
         console.log('login', res)
         LocalForage.setItem('id', res.id)
         LocalForage.setItem('fullName', res.fullName)
-        LocalForage.setItem('token', res.token)
-        const token = window.LocalForage.getItem('token')
-        console.log('login-token=', token)
+        // LocalForage.setItem('token', res.token)
+        window.localStorage.setItem('token', res.token)
+        const token = window.localStorage.getItem('token')
         this.$router.push({
           path: '/mainHome'
         })

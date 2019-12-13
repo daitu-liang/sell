@@ -10,26 +10,12 @@ const instance = axios.create({
   withCredentials: true, // 当跨域请求时发送cookie
   timeout: 15000 // 请求时间
 })
-
+// instance.defaults.headers.common['{token}'] = '89999988888888888'
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
   // Do something before request is sent
-  // if (config.json) {
-  //   config.headers['Content-Type'] = 'application/json'
-  // } else {
-  //   config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-  //   config.data = qs.stringify(config.data) // 利用qs做json序列化
-  // }LocalForage.getItem('openId')
-
-  // config.headers['Access-Control-Allow-Origin'] = '*'
-  // config.headers['Access-Control-Allow-Methods'] = 'POST'
-  // config.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type,Authorization'
-
-  window.LocalForage.getItem('token').then((res) => {
-    console.log('interceptors1', 'axios.interceptors.request.use-----token=' + res)
-    res && (config.headers.token = res)
-  })
-  // token && (config.headers.token = token)
+  var token = window.localStorage.getItem('token')
+  token && (config.headers.token = token)
   config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
   return config
 }, (error) => {

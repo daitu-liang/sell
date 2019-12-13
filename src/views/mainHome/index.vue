@@ -3,8 +3,8 @@
     <div class="mainHome-content">
       <h1>{{userName}}</h1>
       <van-swipe :autoplay="3000">
-      <van-swipe-item v-for="(image, index) in bannerList" :key="index">
-        <img v-lazy="image" />
+      <van-swipe-item v-for="(image, index) in images" :key="index">
+        <img v-lazy:background-image="image"  height="300px" width="100%"/>
       </van-swipe-item>
     </van-swipe>
     </div>
@@ -12,19 +12,27 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem } from 'vant';
+import { Swipe, SwipeItem, Lazyload } from 'vant';
 import apiMixins from '../../commom/network/api/mainHome'
+import Vue from 'vue'
+// options 为可选参数，无则不传
+Vue.use(Lazyload);
 export default {
   name: 'mainHome',
   mixins: [apiMixins],
   components: {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem
+    // [Lazyload.name]: Lazyload
   },
   data() { 
     return {
       bannerList: [],
-      userName: LocalForage.getItem('fullName')
+      userName: LocalForage.getItem('fullName'),
+      images: [
+        'https://img.yzcdn.cn/vant/apple-1.jpg',
+        'https://img.yzcdn.cn/vant/apple-2.jpg'
+      ]
     }
   },
   activated() {

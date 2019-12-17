@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import qs from 'qs' // 引入qs模块，用来序列化post类型的数据
 import { Toast } from 'vant'
+
 import base from './api/base'
 // 不建议 axios挂载到VUE，"会污染vue"框架，让Vue干自己任务，当然挂载到vue功能也可以实现
 // Vue.prototype.$axios = axios

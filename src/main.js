@@ -5,12 +5,13 @@ import './commom/stylus/index.styl'
 import './commom/css/reset.css'
 import axios from './commom/network/http'
 import api from './commom/network/api'
-
+import { Loading } from 'vant'
 /* 第三方插件用块的方式去引用的时候要去注册 */
 import VueResource from 'vue-resource'
 import LocalForage from 'localforage'
 import qs from 'qs'
 Vue.use(VueResource)
+Vue.use(Loading)
 /**
  * 强制设置特定的驱动
  * 默认情况localForage 按照以下顺序选择数据仓库的后端驱动：

@@ -19,6 +19,7 @@
         </van-grid>
       </div>
     </div>
+    <van-loading size="24px" vertical v-show="show">加载中</van-loading>
   </div>
 </template>
 
@@ -47,7 +48,8 @@ export default {
       images: [
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg'
-      ]
+      ],
+       show: true
     }
   },
   activated() {
@@ -61,12 +63,18 @@ export default {
       })
     },
     getHomeMenu() {
+      this.show = true
       this.getMenu().then(res => {
         this.menuList = res
+        this.show = false
       })
     },
     clickMenuItem(menu) {
       console.log('clickMenuItem', menu.menuName)
+      this.$router.push({
+        path: '/list',
+        params: { listType: '999999' }
+      })
     }
   }
  }

@@ -11,6 +11,10 @@ const bannerInfo = {
   // 获取banner接口
   getBanner (params) {
     return axios.post(`${base.sp}super_service/api/notice/bannerList`, qs.stringify(params))
+  },
+  // 获取banner接口
+  getMenu (params) {
+    return axios.post(`${base.sp}super_service/api/user/indexMenuList`, qs.stringify(params))
   }
 }
 export default {

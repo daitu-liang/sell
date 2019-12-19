@@ -1,7 +1,7 @@
 <template>
   <div class="mainHome">
     <div class="mainHome-content">
-      <h1 class="mainHome-title">{{userName}}</h1>
+      <h1 class="mainHome-title" @click="goShop">{{userName}}</h1>
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(image, index) in bannerList" :key="index" class="banner_wraaper">
           <img v-lazy:background-image="image.coverUrl" width="100%" class="banner_img"/>
@@ -9,7 +9,7 @@
       </van-swipe>
       <div>
         <van-grid :column-num="4" :border="false" :clickable="true" icon-size="36px">
-          <van-grid-item
+          <van-grid-item class="menu-item"
             v-for="(menu,index) in menuList" :key="index"
             :icon="menu.iconUrl"
             :text="menu.menuName"
@@ -49,10 +49,11 @@ export default {
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg'
       ],
-       show: true
+       show: true,
+       id: '路由传参'
     }
   },
-  activated() {
+  created() {
     this.getMainHomeBanner()
     this.getHomeMenu()
   },
@@ -71,9 +72,20 @@ export default {
     },
     clickMenuItem(menu) {
       console.log('clickMenuItem', menu.menuName)
+      // $router对象是全局路由的实例，是router构造方法的实例
+      // 实列方法包括push go replace
+      // push方法会向 history 栈添加一个新的记录，而replace方法是替换当前的页面
       this.$router.push({
-        path: '/list',
-        params: { listType: '999999' }
+        name: 'list',
+        params: { listType: 'params传参' }
+        // query: { listType: 'query传参' }
+        // path: `/list/${this.id}` // 路由传参
+      })
+    },
+    goShop() {
+     this.$toast('goShop');
+      this.$router.push({
+        name: 'home'
       })
     }
   }
@@ -97,5 +109,7 @@ export default {
         .banner_img
           width 100%
           height 180px
+      .menu-item
+        padding 0
 
 </style>

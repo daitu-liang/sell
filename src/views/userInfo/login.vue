@@ -20,6 +20,7 @@
         />
       </van-cell-group>
       <van-button color="#7232dd" @click="toLogin" class="login-btn">点击登录</van-button>
+      <van-button color="#7232dd" @click="toShop" class="login-btn">go商城</van-button>
     </div>
   </div>
 </template>
@@ -62,6 +63,12 @@ export default {
           path: '/mainHome'
         })
       })
+    },
+    toShop() {
+        this.$toast('goShop');
+        this.$router.push({
+          name: 'home'
+        })
     }
   }
  }

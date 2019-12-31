@@ -19,7 +19,7 @@
 
 <script>
 import header from 'components/header/header'
-import { getUrlParams } from 'js/urlParamsUtils'
+import { getUrlParams } from '../commom/js/urlParamsUtils'
 const ERR_OK = 0;
 export default {
  data() {
@@ -28,7 +28,8 @@ export default {
           id: (() => {
           let queryParam = getUrlParams('id')
           console.log('queryParam', queryParam)
-          return queryParam
+          // return queryParam          
+          return { name: 124 }
         })()
       }
     };
@@ -42,8 +43,8 @@ export default {
       // this.seller属性 加上response.data
       // Object.assign方法的第一个参数是目标对象，后面的参数都是源对象
       // 如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
-      this.seller = Object.assign({}, this.seller, response.data)
-      console.log('请求结果this.seller.id2=' + this.seller.id)
+      // this.seller = Object.assign({}, this.seller, response.data)
+      // console.log('请求结果this.seller.id2=' + this.seller.score)
       }
     }, reponse => {
 

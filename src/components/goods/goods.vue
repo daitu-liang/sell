@@ -82,6 +82,7 @@ export default {
     }
   },
   async created() {
+     console.log('created--seller=' + this.seller)
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     // const axios = require('axios').default // 局部引入axios
     console.log('window', window)

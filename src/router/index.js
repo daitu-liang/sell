@@ -1,28 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import goods from '../components/goods/goods'
 Vue.use(VueRouter)
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。
 const routes = [
-  {
-    path: '/goods',
-    name: '/goods',
-    component: goods
-  },
-  {
-    path: '/ratings',
-    name: 'ratings',
-    // component: ratings
-    component: () => import('components/ratings/ratings')
-  },
-  {
-    path: '/seller',
-    name: 'seller',
-    component: () => import('components/seller/seller')
-
-  },
   // 重定向，因为首次进入页面时，它的路径是 ‘/’。
   {
     path: '/',
@@ -51,7 +33,25 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/Home')
+    component: () => import('@/views/Home'),
+    children: [ // Home.vue里使用router-view，是嵌套路由
+      {
+        path: '/goods',
+        name: 'goods',
+        component: () => import('components/goods/goods')
+      },
+      {
+        path: '/ratings',
+        name: 'ratings',
+        // component: ratings
+        component: () => import('components/ratings/ratings')
+      },
+      {
+        path: '/seller',
+        name: 'seller',
+        component: () => import('components/seller/seller')
+      }
+    ]
   }
 ]
 

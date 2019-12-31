@@ -53,7 +53,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice">
+    <shopcart ref="shopcart" v-if="seller" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice">
     </shopcart>
     <foodDetail ref="foodDetail" :food="selectedFood" @cart-add="cartAdd"></foodDetail>
   </div>
@@ -73,6 +73,12 @@ export default {
       type: Object
     }
   },
+  watch: {
+    seller: function(fromParant) {
+      console.log('fromParant=' + fromParant)
+     console.log('watch--seller=' + this.seller)
+    }
+  },
   data() {
     return {
       goods: [],
@@ -82,7 +88,6 @@ export default {
     }
   },
   async created() {
-     console.log('created--seller=' + this.seller)
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
     // const axios = require('axios').default // 局部引入axios
     console.log('window', window)

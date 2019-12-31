@@ -67,7 +67,7 @@ export default {
     toShop() {
         this.$toast('goShop');
         this.$router.push({
-          name: 'home'
+          path: 'goods' // 简写为 /goods
         })
     }
   }
